@@ -17,13 +17,17 @@ const Home: React.FC = function () {
   const displayCountries = countryData.slice(0, 8);
 
   return (
-    <div>
-      <div className="home--header">
+    <div className="w-1440 ml-6 text-lg">
+      <form className="home--header">
         <input type="text" placeholder="Search for a country" />
+      </form>
+      <div className="flex flex-wrap  justify-center items-center gap-12">
+        {displayCountries.map((country) => (
+          <Link to={`${country.name.official}`}>
+            <Country country={country} />
+          </Link>
+        ))}
       </div>
-      {displayCountries.map((country) => (
-        <Country country={country} />
-      ))}
     </div>
   );
 };

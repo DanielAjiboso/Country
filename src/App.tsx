@@ -9,14 +9,14 @@ import {
 import RootLayout from "./Layout/RootLayout";
 
 //pages
-import Page2 from "./pages/Page2";
+import Page2, { detailsLoader } from "./pages/Page2";
 import Home, { countryLoader } from "./pages/Home";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<RootLayout />}>
       <Route index element={<Home />} loader={countryLoader} />
-      <Route path="page2" element={<Page2 />} />
+      <Route path=":name" element={<Page2 />} loader={detailsLoader} />
     </Route>
   )
 );
