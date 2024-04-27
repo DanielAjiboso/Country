@@ -56,9 +56,7 @@ export interface CountryInfo {
   name: {
     common: string;
     official: string;
-    nativeName: {
-      /* nativeName properties */
-    };
+    nativeName: any;
   };
   population: number;
   postalCode: {
