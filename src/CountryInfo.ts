@@ -19,9 +19,12 @@ export interface CountryInfo {
     svg: string;
   };
   continents: string[];
+  // currencies: any;
   currencies: {
     [key: string]: {
       /* currency properties */
+      name: string;
+      symbol: string;
     };
   };
   demonyms: {
