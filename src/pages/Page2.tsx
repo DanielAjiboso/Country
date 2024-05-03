@@ -1,4 +1,4 @@
-import { Link, useLoaderData, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { CountryInfo } from "../CountryInfo";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -22,7 +22,7 @@ const Page2 = function () {
 
   return (
     <div>
-      <Link to={"/"} >
+      <Link to={"/"}>
         <button className="">Back</button>
       </Link>
       <div className="">

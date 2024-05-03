@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useLoaderData } from "react-router-dom";
 import Country from "../components/Country";
 import { CountryInfo } from "../CountryInfo";
-import { Dropdown, Input } from "antd";
+import { Dropdown } from "antd";
 import type { MenuProps } from "antd";
 import { BsArrowDownShort } from "react-icons/bs";
 import axios from "axios";
