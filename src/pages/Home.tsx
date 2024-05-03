@@ -19,9 +19,11 @@ import axios from "axios";
 
 const Home: React.FC = function () {
   const countryData: CountryInfo[] = useLoaderData() as CountryInfo[];
-  const displayCountries = countryData.slice(0, 8);
-  const [countries, setCountries] = useState<CountryInfo[]>(displayCountries);
+  const [countries, setCountries] = useState<CountryInfo[]>(countryData);
   const [region, setRegion] = useState<string>();
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [showSearchQuery, setShowSearchQuery] = useState<boolean>(false);
+
   const items: MenuProps["items"] = [
     {
       key: "1",
@@ -54,23 +56,38 @@ const Home: React.FC = function () {
       onClick: () => setRegion("Oceania"),
     },
   ];
+
   useEffect(() => {
     region === ""
       ? axios
           .get(`https://restcountries.com/v3.1/all`)
-          .then((res) => setCountries(res.data.slice(0, 8)))
+          .then((res) => setCountries(res.data))
       : axios
           .get(`https://restcountries.com/v3.1/region/${region}`)
-          .then((res) => setCountries(res.data.slice(0, 8)));
+          .then((res) => setCountries(res.data));
   }, [region]);
 
-  const searchCountry = function () {};
+  const searchCountry = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(event.target.value);
+    setShowSearchQuery(true);
+  };
+
+  // console.log(searchQuery);
+
+  const filteredCountries = countries.filter((country) =>
+    country.name.common.toLowerCase().includes(searchQuery.toLowerCase())
+  );
   return (
     <div className="w-1440 ml-6 text-lg">
       <div>
-        <form className="home--header">
-          <input type="text" placeholder="Search for a country" />
-        </form>
+        <input
+          type="text"
+          placeholder="Search for a country"
+          value={searchQuery}
+          onChange={searchCountry}
+          // onClick={showFiltered}
+        />
+
         <div>
           <Dropdown menu={{ items }}>
             <h4 className="flex gap-2 items-center">
@@ -80,8 +97,21 @@ const Home: React.FC = function () {
           </Dropdown>
         </div>
       </div>
+      <div className="flex flex-col gap-4">
+        {showSearchQuery &&
+          filteredCountries.slice(0, 5).map((country, index) => (
+            <Link to={`${country.name.common}`}>
+              <li key={index} className="bg-white w-43 text-black flex gap-3">
+                <img src={country.flags.png} alt="" className="w-10" />
+                <p>
+                  <strong>{country.name.common} </strong>
+                </p>
+              </li>
+            </Link>
+          ))}
+      </div>
       <div className="flex flex-wrap  justify-center items-center gap-12">
-        {countries.map((country) => (
+        {countries.slice(0, 8).map((country) => (
           <Link to={`${country.name.official}`}>
             <Country country={country} />
           </Link>
