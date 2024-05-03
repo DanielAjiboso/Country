@@ -77,8 +77,11 @@ const Home: React.FC = function () {
   const filteredCountries = countries.filter((country) =>
     country.name.common.toLowerCase().includes(searchQuery.toLowerCase())
   );
+  const removeSearched = function () {
+    setShowSearchQuery(false);
+  };
   return (
-    <div className="w-1440 ml-6 text-lg">
+    <div className="w-1440 ml-6 text-lg" onClick={removeSearched}>
       <div>
         <input
           type="text"

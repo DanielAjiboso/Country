@@ -13,7 +13,6 @@ function Header() {
       document.body.style.backgroundColor = "#fff";
       document.body.style.color = "hsl(207, 26%, 17%)";
     }
-    console.log("clicked");
   }
   return (
     <div className="max-w-[140rem] mx-auto py-[2rem]">
