@@ -18,12 +18,12 @@ const Page2 = function () {
   //   countryDetails?.languages && Object.values(countryDetails.languages);
 
   // console.log(obj?.join(","));
-  console.log(countryDetails?.borders);
+  // console.log(countryDetails?.borders);
 
   return (
     <div>
-      <Link to={"/"}>
-        <button>Back</button>
+      <Link to={"/"} >
+        <button className="">Back</button>
       </Link>
       <div className="">
         <div>
