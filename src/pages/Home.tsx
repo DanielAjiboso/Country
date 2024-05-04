@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useLoaderData, useOutletContext } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import Country from "../components/Country";
 import { CountryInfo } from "../CountryInfo";
 import { Dropdown } from "antd";
@@ -82,52 +82,68 @@ const Home: React.FC = function () {
     setShowSearchQuery(false);
   };
   return (
-    <div className={`w-1440 ml-6 text-lg`} onClick={removeSearched}>
-      <div>
-        <input
-          type="text"
-          placeholder="Search for a country"
-          value={searchQuery}
-          onChange={searchCountry}
-          className={darkMode ? "text-white bg-black" : "text-black bg-white"}
-          // onClick={showFiltered}
-        />
+    <div className={`w-1440 ml-6 text-lg mt-4 `} onClick={removeSearched}>
+      <div className="w-5/6 m-auto ">
+        <div className="flex mb-12">
+          <input
+            type="text"
+            placeholder="Search for a country"
+            value={searchQuery}
+            onChange={searchCountry}
+            className={`mr-auto w-1/3 text-3xl h-20 ${
+              darkMode ? "text-white bg-gray-800" : "text-black bg-white"
+            }`}
+            // onClick={showFiltered}
+          />
 
-        <div>
-          <Dropdown menu={{ items }}>
-            <h4 className="flex gap-2 items-center">
-              <span className={`${darkMode ? "text-white" : "text-black"}`}>
-                {" "}
-                Filter By Regions
-              </span>{" "}
-              <BsArrowDownShort size={"22px"} />
-            </h4>
-          </Dropdown>
+          <div>
+            <Dropdown menu={{ items }}>
+              <div
+                className={`flex gap-2 items-center w-96 h-20  ${
+                  darkMode ? "bg-gray-800" : "bg-white"
+                } `}
+              >
+                <div className="m-auto flex gap-2 w-3/4">
+                  <span
+                    className={`mr-auto text-3xl   ${
+                      darkMode ? "text-white" : "text-black "
+                    }`}
+                  >
+                    {" "}
+                    Filter By Regions
+                  </span>{" "}
+                  <BsArrowDownShort size={"22px"} />
+                </div>
+              </div>
+            </Dropdown>
+          </div>
+        </div>
+        <div className="flex flex-col gap-4">
+          {showSearchQuery &&
+            filteredCountries.slice(0, 5).map((country, index) => (
+              <Link to={`${country.name.common}`}>
+                <li
+                  key={index}
+                  className={`${
+                    darkMode
+                      ? "bg-blue-950 text-white"
+                      : "bg-grey-100 text-black"
+                  } flex mt-4 w-fit  gap-3 `}
+                >
+                  <img
+                    src={country.flags.png}
+                    alt=""
+                    className=" h-8 outline-none !placeholder-white"
+                  />
+                  <p>
+                    <strong>{country.name.common} </strong>
+                  </p>
+                </li>
+              </Link>
+            ))}
         </div>
       </div>
-      <div className="flex flex-col gap-4">
-        {showSearchQuery &&
-          filteredCountries.slice(0, 5).map((country, index) => (
-            <Link to={`${country.name.common}`}>
-              <li
-                key={index}
-                className={`${
-                  darkMode ? "bg-blue-950 text-white" : "bg-white text-black"
-                } flex w-43  gap-3 `}
-              >
-                <img
-                  src={country.flags.png}
-                  alt=""
-                  className="w-43 h-8 outline-none !placeholder-white"
-                />
-                <p>
-                  <strong>{country.name.common} </strong>
-                </p>
-              </li>
-            </Link>
-          ))}
-      </div>
-      <div className="flex flex-wrap  justify-center items-center gap-12">
+      <div className="flex flex-wrap  justify-center items-center gap-36 w-5/6 m-auto ">
         {countries.slice(0, 8).map((country) => (
           <Link to={`${country.name.official}`}>
             <Country country={country} darkMode={darkMode} />

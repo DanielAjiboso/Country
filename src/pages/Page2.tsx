@@ -24,11 +24,15 @@ const Page2 = function () {
   // console.log(countryDetails?.borders);
 
   return (
-    <div className="min-h-screen space-y-12">
+    <div className="min-h-screen space-y-12 mt-5">
       <Link to={"/"}>
-        <button className="shadow-2xl py-2 px-4 ml-2 bg-gray-500 rounded-md text-white flex gap-2 ">
+        <button
+          className={`shadow-2xl py-2 px-4 ml-2 rounded-md flex gap-2 ${
+            darkMode ? "bg-gray-800 text-white" : "bg-white text-black"
+          } `}
+        >
           <AiOutlineArrowLeft size={"20px"} />
-          <span className="text-2xl">Back</span>
+          <span className={`text-2xl `}>Back</span>
         </button>
       </Link>
       <div className=" ml-24 flex gap-28">
@@ -46,6 +50,10 @@ const Page2 = function () {
             <div className="flex flex-col gap-6">
               <p>
                 <strong>Official Name:</strong> {countryDetails?.name.official}
+              </p>
+              <p>
+                <strong>Population</strong>
+                {countryDetails?.population.toLocaleString()}
               </p>
               <p>
                 {" "}
@@ -88,7 +96,11 @@ const Page2 = function () {
               <strong>Border Countries:</strong>
             </span>
             {countryDetails?.borders.map((con) => (
-              <div className="shadow-2xl py-2 px-4 ml-2 bg-slate-300  rounded-md text-black  text-center">
+              <div
+                className={`shadow-2xl py-2 px-4 ml-2  rounded-md  text-center ${
+                  darkMode ? "text-white bg-gray-800" : "text-black bg-white"
+                }`}
+              >
                 {con}
               </div>
             ))}{" "}
