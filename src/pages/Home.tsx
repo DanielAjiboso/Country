@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
-import { Link, useLoaderData } from "react-router-dom";
+import { Link, useLoaderData, useOutletContext } from "react-router-dom";
 import Country from "../components/Country";
 import { CountryInfo } from "../CountryInfo";
 import { Dropdown } from "antd";
 import type { MenuProps } from "antd";
 import { BsArrowDownShort } from "react-icons/bs";
+import { useUser } from "../Layout/RootLayout";
 import axios from "axios";
 // interface CountryTS {
 //   name: string;
@@ -23,7 +24,7 @@ const Home: React.FC = function () {
   const [region, setRegion] = useState<string>();
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [showSearchQuery, setShowSearchQuery] = useState<boolean>(false);
-
+  const { darkMode } = useUser();
   const items: MenuProps["items"] = [
     {
       key: "1",
@@ -81,20 +82,24 @@ const Home: React.FC = function () {
     setShowSearchQuery(false);
   };
   return (
-    <div className="w-1440 ml-6 text-lg" onClick={removeSearched}>
+    <div className={`w-1440 ml-6 text-lg`} onClick={removeSearched}>
       <div>
         <input
           type="text"
           placeholder="Search for a country"
           value={searchQuery}
           onChange={searchCountry}
+          className={darkMode ? "text-white bg-black" : "text-black bg-white"}
           // onClick={showFiltered}
         />
 
         <div>
           <Dropdown menu={{ items }}>
             <h4 className="flex gap-2 items-center">
-              <span className="text-white"> Filter By Regions</span>{" "}
+              <span className={`${darkMode ? "text-white" : "text-black"}`}>
+                {" "}
+                Filter By Regions
+              </span>{" "}
               <BsArrowDownShort size={"22px"} />
             </h4>
           </Dropdown>
@@ -104,8 +109,17 @@ const Home: React.FC = function () {
         {showSearchQuery &&
           filteredCountries.slice(0, 5).map((country, index) => (
             <Link to={`${country.name.common}`}>
-              <li key={index} className="bg-white w-43 text-black flex gap-3">
-                <img src={country.flags.png} alt="" className="w-10" />
+              <li
+                key={index}
+                className={`${
+                  darkMode ? "bg-blue-950 text-white" : "bg-white text-black"
+                } flex w-43  gap-3 `}
+              >
+                <img
+                  src={country.flags.png}
+                  alt=""
+                  className="w-43 h-8 outline-none !placeholder-white"
+                />
                 <p>
                   <strong>{country.name.common} </strong>
                 </p>
@@ -116,7 +130,7 @@ const Home: React.FC = function () {
       <div className="flex flex-wrap  justify-center items-center gap-12">
         {countries.slice(0, 8).map((country) => (
           <Link to={`${country.name.official}`}>
-            <Country country={country} />
+            <Country country={country} darkMode={darkMode} />
           </Link>
         ))}
       </div>

@@ -1,15 +1,16 @@
-import { useState } from "react";
-
-function Header() {
-  const [darkMode, setDarkMode] = useState<boolean>(true);
+interface Props {
+  darkMode: boolean;
+  setDarkMode: React.Dispatch<React.SetStateAction<boolean>>;
+}
+const Header: React.FC<Props> = function ({ darkMode, setDarkMode }: Props) {
   function toggle() {
     setDarkMode(!darkMode);
-    if (darkMode) {
+    if (!darkMode) {
       document.body.style.transition = "all 500ms";
       document.body.style.backgroundColor = "hsl(207, 26%, 17%)";
       document.body.style.color = "#fff";
     }
-    if (!darkMode) {
+    if (darkMode) {
       document.body.style.backgroundColor = "#fff";
       document.body.style.color = "hsl(207, 26%, 17%)";
     }
@@ -26,6 +27,6 @@ function Header() {
       </header>
     </div>
   );
-}
+};
 
 export default Header;

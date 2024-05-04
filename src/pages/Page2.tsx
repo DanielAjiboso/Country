@@ -3,9 +3,10 @@ import { CountryInfo } from "../CountryInfo";
 import { useEffect, useState } from "react";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import axios from "axios";
+import { useUser } from "../Layout/RootLayout";
 
 const Page2 = function () {
-  // const
+  const { darkMode } = useUser();
   const { name } = useParams();
   const [countryDetails, setCountryDetails] = useState<CountryInfo>();
   // https://restcountries.com/v3.1/name/{name}
