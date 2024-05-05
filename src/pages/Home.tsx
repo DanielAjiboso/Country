@@ -81,6 +81,7 @@ const Home: React.FC = function () {
   const removeSearched = function () {
     setShowSearchQuery(false);
   };
+
   return (
     <div className={`w-1440 ml-6 text-lg mt-4 `} onClick={removeSearched}>
       <div className="w-5/6 m-auto ">
@@ -158,5 +159,9 @@ export default Home;
 
 export const countryLoader = async () => {
   const res = await fetch(`https://restcountries.com/v3.1/all`);
+  if (!res.ok) {
+    throw Error("Could not fetch the countries");
+  }
+
   return res.json();
 };
